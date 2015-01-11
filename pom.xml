@@ -21,6 +21,7 @@
     <camel.version>2.14.1</camel.version>
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
+    <spring.version>4.0.5.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -42,6 +43,11 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jackson</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-swagger</artifactId>
       <version>${camel.version}</version>
     </dependency>
 

@@ -3,7 +3,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:camel="http://camel.apache.org/schema/spring"
        xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
@@ -11,15 +10,26 @@
   <context:component-scan base-package="com.icantrap.examples.camel_swagger.routes"/>
   <context:component-scan base-package="com.icantrap.examples.camel_swagger.processors"/>
 
-  <camel:camelContext xmlns="http://camel.apache.org/schema/spring">
-    <camel:contextScan/>
+  <camelContext id="rest-camel-context" xmlns="http://camel.apache.org/schema/spring">
+    <contextScan/>
 
     <restConfiguration bindingMode="json" component="jetty" host="127.0.0.1" port="8080"/>
 
     <rest path="/fake">
       <get uri="/">
+        <description>A Fake Call</description>
         <to uri="direct:fake"/>
       </get>
+
+      <get uri="/{id}">
+        <description>A Parameterized Fake Call</description>
+        <to uri="direct:fake"/>
+      </get>
+
+      <post uri="/">
+        <description>Fake creation</description>
+        <to uri="direct:fake"/>
+      </post>
     </rest>
 
     <route>
@@ -28,6 +38,6 @@
         <constant>Fuh-fuh-fake!!!</constant>
       </transform>
     </route>
-  </camel:camelContext>
+  </camelContext>
 
 </beans>
